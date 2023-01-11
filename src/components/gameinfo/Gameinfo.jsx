@@ -2,7 +2,6 @@ import styles from './Gameinfo.module.css'
 import Icon from '../icon/Icon'
 import Button from '../button/Button'
 
-
 function GameInfo ({currentPlayer,winner,onReset}) {
   
   const shoudEnableButton = ()=> {
@@ -40,16 +39,9 @@ function GameInfo ({currentPlayer,winner,onReset}) {
         onClick={onReset} 
         disabled={!shoudEnableButton()}
         >
-          
-
           Reniciar 
-        </Button>
-        
-      
-
-
-        
-       </div>
+        </Button>        
+    </div>
   )
 }
 export default GameInfo
