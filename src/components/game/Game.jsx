@@ -2,6 +2,8 @@ import { useState,useEffect } from 'react'
 import styles from './Game.module.css'
 import GameOption from '../gameOption/GameOption'
 import GameInfo from '../gameinfo/Gameinfo'
+import Score from '../score/Score'
+
 /*
 Um array com varias posição de forma simplificada
 let array = Array(9).fill(0)
@@ -75,9 +77,10 @@ function Game () {
   },[winner]) 
   
   return (
-    <div className={styles.gameContent}>
-       <div className={styles.game}>
-      {
+    <>
+      <div className={styles.gameContent}>
+        <div className={styles.game}>
+        {
         gameState.map((value ,pos) =>
          
          <GameOption 
@@ -87,7 +90,7 @@ function Game () {
             isWinner={verifyWinnerLine(pos)} 
             isDraw={draw}       
          /> )
-      }
+        }
      
        </div>
        <GameInfo
@@ -97,6 +100,8 @@ function Game () {
        isDraw={draw} 
        />
     </div>
+      <Score />
+    </>
   )
 
 }
