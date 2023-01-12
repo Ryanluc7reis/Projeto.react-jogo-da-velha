@@ -5,12 +5,13 @@ import Icon from '../icon/Icon'
 
 const GameIcon = ({iconName }) => <Icon iconName={iconName } size ="30px" />
 
-function GameOption ({status, onCLick,isWinner }) {
+function GameOption ({status, onCLick,isWinner,isDraw }) {
   return (
     <div 
       className={
         classNames(styles.gameOption,{
-         [styles.winner] : isWinner
+         [styles.winner] : isWinner,
+         [styles.draw ]: isDraw
         })
       } 
       onClick={onCLick}

@@ -25,6 +25,7 @@ function Game () {
   const [currentPlayer,setCurrentPlayer] = useState (-1)
   const [winner,setWinner] =useState(0,1,-1)
   const [winnerLine,setWinnerLine]=useState([])
+  const [draw,setDraw]=useState(false)
 
 
   const handleClick = (pos) => {
@@ -52,6 +53,13 @@ function Game () {
     setGameState(Array(9).fill(0))
     setWinner(0)
     setWinnerLine([])
+    setDraw(false)
+  }
+
+  const verifyDraw = () => {
+    if (gameState.find((value) => value === 0) === undefined && winner === 0 ){
+      setDraw(true)
+    }
   }
   const verifyWinnerLine = (pos) => 
      winnerLine.find((value)=> value === pos) !== undefined
@@ -59,10 +67,13 @@ function Game () {
   useEffect(() =>{
       setCurrentPlayer(currentPlayer * -1)
       verifyGame()
+      verifyDraw()
     },[gameState])  
     /*  "useEffect" : utilizado para carregar todo o conteudo da pagina antes de mostrar para o usuario; [] usado para alterar algum função ou alguma variavel */
-    
- 
+  useEffect (() => {
+    if (winner !== 0) setDraw(false)
+  },[winner]) 
+  
   return (
     <div className={styles.gameContent}>
        <div className={styles.game}>
@@ -73,7 +84,8 @@ function Game () {
             key={`game-option-pos-${pos}`}
             status={value}
             onCLick={() => handleClick(pos)} /* "() =>" handleClick(pos)} serve para chamar a função */
-            isWinner={verifyWinnerLine(pos)}        
+            isWinner={verifyWinnerLine(pos)} 
+            isDraw={draw}       
          /> )
       }
      
@@ -81,7 +93,9 @@ function Game () {
        <GameInfo
        currentPlayer={currentPlayer}
        winner={winner}
-       onReset ={handleReset} />
+       onReset ={handleReset}
+       isDraw={draw} 
+       />
     </div>
   )
 

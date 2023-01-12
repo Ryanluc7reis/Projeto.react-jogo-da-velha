@@ -2,16 +2,18 @@ import styles from './Gameinfo.module.css'
 import Icon from '../icon/Icon'
 import Button from '../button/Button'
 
-function GameInfo ({currentPlayer,winner,onReset}) {
+function GameInfo ({currentPlayer,winner,onReset,isDraw}) {
   
-  const shoudEnableButton = ()=> {
+  const shoudEnableButton = ()=> winner !== 0 || isDraw  /* <-- obs: quando for algo q representamos de com false ou true podemos fazer assim
+  outra forma de representa isso  {    
     if ( winner !== 0 ) return true
-  }
-  
+    if ( isDraw ) return true
+  }*/                        
+  winner !== 0 || isDraw 
   return (
     <div className={styles.gameInfo}>
         {
-          winner === 0 &&
+          !isDraw && winner === 0 && /* "!" = SE NAO OU NEGAÇÃO DE ALGO */
             <>
               <h4>Próximo a jogar:</h4>
               {
@@ -24,7 +26,7 @@ function GameInfo ({currentPlayer,winner,onReset}) {
             </>
         }
         {
-          winner !== 0 &&  /* "!==" diferente */
+          !isDraw && winner !== 0 &&  /* "!==" diferente */
             <>
               <h4>Fim de jogo! Campeão:</h4>
                 {
@@ -34,6 +36,10 @@ function GameInfo ({currentPlayer,winner,onReset}) {
                   winner === -1 && <Icon iconName='x' />
                 }
             </>
+        }
+        {
+          isDraw && <h4>Empate !</h4>
+          
         }
         <Button
         onClick={onReset} 
